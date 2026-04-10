@@ -1,72 +1,78 @@
-# Comandos-de-git
-comandos que me sirvieron cuando empece en git 
+# 🛠️ Guía Maestra de Git: LoboProyect
 
-**1. Configuración Inicial**
+---
 
-- `git init`: Crea un nuevo repositorio Git local en el directorio actual.
-- `git clone [url]`: Clona (descarga) un repositorio existente desde una URL remota.
-- `git config --global user.name "[nombre]"`: Configura el nombre de usuario para tus commits.
-- `git config --global user.email "[email]"`: Configura el correo electrónico para tus commits.
+## 1. Configuración de Identidad
 
-**2. Ciclo de Trabajo Básico (Staging y Commit)**
+_Antes de empezar a trabajar, asegúrate de que Git sepa quién eres._
 
-- `git status`: Muestra el estado de los archivos (modificados, en staging, etc.).
-- `git add [archivo]`: Añade un archivo específico al área de preparación (staging).
-- `git add .`: Añade todos los cambios del directorio actual al staging.
-- `git commit -m "[mensaje]"`: Confirma los cambios preparados, guardándolos en el historial con un mensaje.
-- `git diff`: Muestra las diferencias entre archivos no preparados y la última versión.
+- **Configurar usuario:** `git config --global user.name "Tu Nombre"`
+- **Configurar correo:** `git config --global user.email "tu-correo@ejemplo.com"`
+- **Ver nombre configurado:** `git config user.name`
+- **Ver correo configurado:** `git config user.email`
+- **Ver toda la configuración:** `git config --list`
 
-**3. Ramas (Branches) y Fusión (Merging)**
+---
 
-- `git branch`: Lista las ramas locales.
-- `git branch [nombre-rama]`: Crea una nueva rama.
-- `git checkout [nombre-rama]`: Cambia a la rama especificada.
-- `git checkout -b [nombre-rama]`: Crea una rama y cambia a ella inmediatamente.
-- `git merge [nombre-rama]`: Fusiona la rama especificada con la rama actual.
-- `git branch -d [nombre-rama]`: Elimina una rama local.
+## 2. Inicio y Conexión Remota
 
-**4. Repositorios Remotos (GitHub, GitLab, Bitbucket)**
+_Para crear el repositorio o conectarlo con GitHub por primera vez._
 
-- `git remote add origin [url]`: Conecta tu repositorio local con uno remoto.
-- `git push -u origin [rama]`: Sube los cambios locales de una rama al repositorio remoto.
-- `git pull`: Descarga y fusiona los cambios del repositorio remoto al local.
-- `git fetch`: Descarga los cambios del repositorio remoto sin fusionarlos.
+- **Iniciar repo local:** `git init`  
+  _(Crea la carpeta oculta `.git` donde se guarda el historial)._
+- **Clonar repo existente:** `git clone [url]`  
+  _(Descarga un proyecto que ya existe en la nube)._
+- **Conectar con GitHub:** `git remote add origin [URL]`  
+  _(Crea el "puente" hacia la nube)._
+- **Renombrar rama a main:** `git branch -M main`  
+  _(Estándar actual de GitHub para la rama principal)._
+- **Eliminar Git del proyecto:** `rm -rf .git`  
+  _(Borra todo el historial de Git local, úsalo con cuidado)._
 
-**5. Historial y Deshacer**
+---
 
-- `git log`: Muestra el historial de commits.
-- `git log --oneline`: Muestra el historial de forma resumida.
-- `git reset [archivo]`: Saca un archivo del área de staging, pero conserva los cambios.
-- `git revert [commit]`: Crea un nuevo commit que deshace los cambios de un commit anterior.
-- `git stash`: Guarda temporalmente los cambios no confirmados para trabajar en otra cosa.
-- `git stash pop`: Recupera los cambios guardados con stash.
+## 3. Ciclo de Trabajo (El ABC: Staging y Commit)
 
-### Para ver tu configuración actual:
+_Los pasos diarios para registrar tus avances._
 
-- **Ver el nombre:** `git config user.name`
-- **Ver el correo:** `git config user.email`
+- **Ver estado:** `git status`  
+  _(Muestra qué archivos han cambiado o no están rastreados)._
+- **Añadir un archivo específico:** `git add [archivo]`
+- **Añadir TODO al área de preparación:** `git add .`
+- **Quitar del staging (Unstage):** `git restore --staged [archivo]`  
+  _(Saca el archivo de la "sala de espera" sin borrar tus cambios en el código)._
+- **Guardar cambios (Commit):** `git commit -m "[mensaje]"`  
+  _(Crea un punto en el historial con un mensaje descriptivo)._
+- **Ver diferencias:** `git diff`  
+  _(Muestra los cambios antes de hacer el `git add`)._
 
-`git config --list` ver una lista completa de todas tus configuraciones (incluyendo el editor, la rama por defecto, etc.), usa
+---
 
-configuracion de usuario y correo :
+## 4. Sincronización con GitHub (Push y Pull)
 
-- `git config --global user.name "Tu Nombre"`
-- `git config --global user.email "tu-correo@ejemplo.com"`
+_Para enviar y recibir archivos de la nube._
 
-#### Quitarlo de la "sala de espera" (Unstage)
+- **Bajar cambios de GitHub:** `git pull origin main`
+- **Bajar y unir historias distintas:** `git pull origin main --allow-unrelated-histories`  
+  _(Úsalo si el repo de GitHub ya tenía archivos y tu local también)._
+- **Subir por primera vez:** `git push -u origin main`  
+  _(El `-u` vincula la rama para que luego solo uses `git push`)._
+- **Subir cambios normales:** `git push`
+- **Descargar sin fusionar:** `git fetch`  
+  _(Solo descarga la información para revisar qué hay de nuevo sin tocar tu código)._
 
-Si solo quieres que NO entre en este commit específico pero que se quede en tu carpeta:
+---
 
-Escribe esto en tu terminal: `git restore --staged desktop.ini`
+## 5. Ramas (Branches) y Fusión
 
-para subir el repo a git hub 
+_Para trabajar en funciones nuevas sin afectar el código principal._
 
-- **`git remote add origin [URL]`**
-Crea el **puente** entre tu computadora y GitHub. Le dice a tu Git local: "esta es la dirección de internet donde quiero subir mi código".
-- **`git branch -M main`Renombra** tu rama principal a `main`. Es el estándar actual de GitHub para evitar confusiones con nombres antiguos como `master`.
-- **`git pull origin main --allow-unrelated-histories`**
-Este fue el "salvavidas". Se usa para **descargar** lo que hay en GitHub y unirlo con lo que tienes en tu PC, incluso si Git piensa que son proyectos diferentes.
-- **`git commit -m "mensaje"`**
-Es como darle a **"Guardar"** oficialmente. Confirma que los cambios (o la unión de archivos que hicimos) ya están listos y registrados.
-- **`git push -u origin main`**
-El comando final para **subir** todo. El `u` hace que Git "recuerde" el camino, para que la próxima vez solo tengas que escribir `git push`.
+- **Listar ramas:** `git branch`
+- **Crear rama nueva:** `git branch [nombre]`
+- **Cambiar de rama:** `git checkout [nombre]`
+- **Crear y cambiar rápido:** `git checkout -b [nombre]`
+- **Cambiar nombre de la rama actual:** `git branch -m [nuevo-nombre]`
+- **Fusionar rama:** `git merge [nombre]`  
+  _(Trae los cambios de la rama indicada a tu rama actual)._
+
+---
