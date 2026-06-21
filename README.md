@@ -1,4 +1,4 @@
-# 🛠️ Guía Maestra de Git: LoboProyect
+# 🛠️ Guía Maestra de Git
 
 ---
 
